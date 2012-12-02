@@ -5,25 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Luxiaobin`Blog</title>
+  <title>安装octopress遇到的问题 - Luxiaobin`Blog</title>
   <meta name="author" content="luxiaobin">
 
   
-  <meta name="description" content="按照常规方式设置过程： 1
-2
-3
-4
-5
-6
-7
-8
-9
-$mkdir .ssh
-$cd .ssh
-$ssh-keygen -t rsa
-$scp id_rsa.pub root@192.168.1.33:~/.ssh
-$ssh -l root 192.168.1.33//远程连接到远程主机
-# &hellip;">
+  <meta name="description" content="RUBY环境搭建 为了便于ruby版本的管理，采用了rbenv来管理ruby，octopress推荐使用ruby1.9.3来部署它，我参考了这个过程进行安装。在12.04上面安装ruby,由于一开始按照官方文档进行安装的，碰到了几个问题。
+环境变量的设置，octopress的官方文档， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -32,7 +19,7 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://luxiaobin.github.com/blog/">
+  <link rel="canonical" href="http://luxiaobin.github.com/blog/blog/2012/12/02/the-trip-to-octopress/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -76,76 +63,12 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/12/02/sshd-ssh-keygen-t-rsa/">Sshd设置信任登录问题</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-02T15:54:00+08:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time>
-        
-         | <a href="/blog/2012/12/02/sshd-ssh-keygen-t-rsa/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>按照常规方式设置过程：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$mkdir</span> .ssh
-</span><span class='line'><span class="nv">$cd</span> .ssh
-</span><span class='line'><span class="nv">$ssh</span>-keygen -t rsa
-</span><span class='line'><span class="nv">$scp</span> id_rsa.pub root@192.168.1.33:~/.ssh
-</span><span class='line'><span class="nv">$ssh</span> -l root 192.168.1.33//远程连接到远程主机
-</span><span class='line'><span class="c">#cd ./ssh</span>
-</span><span class='line'><span class="c">#cat id_rsa.pub &gt;&gt; authorized_keys</span>
-</span><span class='line'><span class="nv">$ssh</span> -l root 192.168.1.33//测试
-</span><span class='line'><span class="nv">$Agent</span> admitted failure to sign using the key //要求输入密码，并报错
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>检查目录权限等没问题，一般./ssh文件夹是755 authorized-keys为600或者644，搜索得到如下解决方法：在客户机ssh-add   ~/.ssh/id-rsa。更改后可以无密码登录，主要是由于客户机有多个rsa key。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/02/the-trip-to-octopress/">安装octopress遇到的问题</a></h1>
+      <h1 class="entry-title">安装octopress遇到的问题</h1>
     
     
       <p class="meta">
@@ -163,14 +86,14 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
 
 <time datetime="2012-12-02T15:16:00+08:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time>
         
-         | <a href="/blog/2012/12/02/the-trip-to-octopress/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>RUBY环境搭建</h2>
+<div class="entry-content"><h2>RUBY环境搭建</h2>
 
 <p>为了便于ruby版本的管理，采用了rbenv来管理ruby，octopress推荐使用ruby1.9.3来部署它，我参考了这个过程进行安装。<a href="http://www.stehem.net/2012/05/08/how-to-install-ruby-with-rbenv-on-ubuntu-12-04.html">在12.04上面安装ruby</a>,由于一开始按照官方文档进行安装的，碰到了几个问题。
 环境变量的设置，octopress的官方文档，环境变量是写如到.bash-profile,而Ubuntu应该放入到.bashrc，如下：</p>
@@ -214,18 +137,59 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
 <em>Octopress安装文档：</em> http://octopress.org/docs/setup/<br/>
 <em>Octopress第三插件：</em> https://github.com/imathis/octopress/wiki/3rd-party-plugins</p>
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">luxiaobin</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2012-12-02T15:16:00+08:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://luxiaobin.github.com/blog/blog/2012/12/02/the-trip-to-octopress/" data-via="" data-counturl="http://luxiaobin.github.com/blog/blog/2012/12/02/the-trip-to-octopress/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/12/02/sshd-ssh-keygen-t-rsa/" title="Next Post: sshd设置信任登录问题">sshd设置信任登录问题 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -251,6 +215,7 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -265,7 +230,10 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
       var disqus_shortname = 'luxiaobin@yeah.net';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://luxiaobin.github.com/blog/blog/2012/12/02/the-trip-to-octopress/';
+        var disqus_url = 'http://luxiaobin.github.com/blog/blog/2012/12/02/the-trip-to-octopress/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

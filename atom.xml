@@ -4,7 +4,7 @@
   <title><![CDATA[Luxiaobin`Blog]]></title>
   <link href="http://luxiaobin.github.com/blog/atom.xml" rel="self"/>
   <link href="http://luxiaobin.github.com/blog/"/>
-  <updated>2012-12-02T13:41:49+08:00</updated>
+  <updated>2012-12-02T16:12:54+08:00</updated>
   <id>http://luxiaobin.github.com/blog/</id>
   <author>
     <name><![CDATA[luxiaobin]]></name>
@@ -12,5 +12,88 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[sshd设置信任登录问题]]></title>
+    <link href="http://luxiaobin.github.com/blog/blog/2012/12/02/sshd-ssh-keygen-t-rsa/"/>
+    <updated>2012-12-02T15:54:00+08:00</updated>
+    <id>http://luxiaobin.github.com/blog/blog/2012/12/02/sshd-ssh-keygen-t-rsa</id>
+    <content type="html"><![CDATA[<p>按照常规方式设置过程：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$mkdir</span> .ssh
+</span><span class='line'><span class="nv">$cd</span> .ssh
+</span><span class='line'><span class="nv">$ssh</span>-keygen -t rsa
+</span><span class='line'><span class="nv">$scp</span> id_rsa.pub root@192.168.1.33:~/.ssh
+</span><span class='line'><span class="nv">$ssh</span> -l root 192.168.1.33//远程连接到远程主机
+</span><span class='line'><span class="c">#cd ./ssh</span>
+</span><span class='line'><span class="c">#cat id_rsa.pub &gt;&gt; authorized_keys</span>
+</span><span class='line'><span class="nv">$ssh</span> -l root 192.168.1.33//测试
+</span><span class='line'><span class="nv">$Agent</span> admitted failure to sign using the key //要求输入密码，并报错
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>检查目录权限等没问题，一般./ssh文件夹是755 authorized-keys为600或者644，搜索得到如下解决方法：在客户机ssh-add   ~/.ssh/id-rsa。更改后可以无密码登录，主要是由于客户机有多个rsa key。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[安装octopress遇到的问题]]></title>
+    <link href="http://luxiaobin.github.com/blog/blog/2012/12/02/the-trip-to-octopress/"/>
+    <updated>2012-12-02T15:16:00+08:00</updated>
+    <id>http://luxiaobin.github.com/blog/blog/2012/12/02/the-trip-to-octopress</id>
+    <content type="html"><![CDATA[<h2>RUBY环境搭建</h2>
+
+<p>为了便于ruby版本的管理，采用了rbenv来管理ruby，octopress推荐使用ruby1.9.3来部署它，我参考了这个过程进行安装。<a href="http://www.stehem.net/2012/05/08/how-to-install-ruby-with-rbenv-on-ubuntu-12-04.html">在12.04上面安装ruby</a>,由于一开始按照官方文档进行安装的，碰到了几个问题。
+环境变量的设置，octopress的官方文档，环境变量是写如到.bash-profile,而Ubuntu应该放入到.bashrc，如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span><span class='line'><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;eval &quot;$(rbenv init -)&quot;&#39;</span> &gt;&gt; ~/.bashrc
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在执行gem install bundler的时候报如下错误</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>ERROR: Loading <span class="nb">command</span>: install <span class="o">(</span>LoadError<span class="o">)</span>
+</span><span class='line'>cannot load such file -- zlib
+</span><span class='line'>ERROR: While executing gem ... <span class="o">(</span>NameError<span class="o">)</span>
+</span><span class='line'>uninitialized constant Gem::Commands::InstallCommand
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>搜索得知，没有安装zlib1g-dev，因此使用aptitude安装，但是还会报错；采用以下办法解决此问题：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rbenv uninstall 1.9.3-p194
+</span><span class='line'>rbenv install 1.9.3-p194
+</span><span class='line'>ruby -v //检查版本
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在执行bundle install的时候又报找不到命令的错误，可以这样执行命令：rbenv exec bundle install。</p>
+
+<h2>参考链接</h2>
+
+<p><em>介绍和使用:</em> http://chenzhiwei.net/2012/07/07/this-is-the-first-article/<br/>
+<em>Octopress安装文档：</em> http://octopress.org/docs/setup/<br/>
+<em>Octopress第三插件：</em> https://github.com/imathis/octopress/wiki/3rd-party-plugins</p>
+]]></content>
+  </entry>
   
 </feed>
