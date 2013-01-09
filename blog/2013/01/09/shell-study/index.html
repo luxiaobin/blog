@@ -9,11 +9,9 @@
   <meta name="author" content="luxiaobin">
 
   
-  <meta name="description" content="基础 为了防止在使用变量的时候出错，强制变量使用，必须要先定义
-&#8221;&#8217;bash
-hopt -s -o nounset
-&#8221;&#8217;
-单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号 &hellip;">
+  <meta name="description" content="基础 为了防止在使用变量的时候出错，强制变量使用，必须要先定义 1
+hopt -s -o nounset 单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号。
+BASH内置变量IFS,定义字段分割符，默认是空格， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,35 +96,57 @@ hopt -s -o nounset
 
 <div class="entry-content"><h2>基础</h2>
 
-<p>为了防止在使用变量的时候出错，强制变量使用，必须要先定义
-&#8221;&#8217;bash
-hopt -s -o nounset
-&#8221;&#8217;
-单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号。
-BASH内置变量IFS,定义字段分割符，默认是空格，可以进行重新定义，进行分割字符串
-&#8221;&#8217;bash</p>
+<p>为了防止在使用变量的时候出错，强制变量使用，必须要先定义</p>
 
-<h1>!/bin/bash</h1>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>hopt -s -o nounset
+</span></code></pre></td></tr></table></div></figure>
 
-<p>PL=&#8221;root:x:0:0:root:/root:/bin/bash&#8221;
-IFS=&#8217;:&#8217;
-j=0</p>
 
-<p>for i in $PL
-do
-j=$((j+1))
-echo 第$j个字段是 $i
-done
-&#8221;&#8217;
-条件式的用途，确保变量值一定要存在，否则若是继续执行下去，恐怕会发生严重后果&#8221;&#8217;bash</p>
+<p>单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号。
+BASH内置变量IFS,定义字段分割符，默认是空格，可以进行重新定义，进行分割字符串</p>
 
-<h1>!/bin/bash</h1>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">PL</span><span class="o">=</span><span class="s2">&quot;root:x:0:0:root:/root:/bin/bash&quot;</span>
+</span><span class='line'><span class="nv">IFS</span><span class="o">=</span><span class="s1">&#39;:&#39;</span>
+</span><span class='line'><span class="nv">j</span><span class="o">=</span>0
+</span><span class='line'>
+</span><span class='line'><span class="k">for </span>i in <span class="nv">$PL</span>
+</span><span class='line'><span class="k">do</span>
+</span><span class='line'><span class="nv">j</span><span class="o">=</span><span class="k">$((</span>j+1<span class="k">))</span>
+</span><span class='line'><span class="nb">echo</span> 第<span class="nv">$j</span>个字段是 <span class="nv">$i</span>
+</span><span class='line'><span class="k">done</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>fn=${1:?&#8217;错误！请提供要删除的目录名称！&#8217;}</p>
 
-<p>echo &#8216;你要执行删除目录的指令是：&#8217;
-echo &#8220;rm -Rf ~/$fn&#8221;
-&#8221;&#8217;</p>
+<p>条件式的用途，确保变量值一定要存在，否则若是继续执行下去，恐怕会发生严重后果</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'><span class="nv">fn</span><span class="o">=</span><span class="k">${</span><span class="nv">1</span><span class="p">:?</span><span class="s1">&#39;错误！请提供要删除的目录名称！&#39;</span><span class="k">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">echo</span> <span class="s1">&#39;你要执行删除目录的指令是：&#39;</span>
+</span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;rm -Rf ~/$fn&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
