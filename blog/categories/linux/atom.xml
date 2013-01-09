@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: LINUX | Luxiaobin`s Blog]]></title>
+  <link href="http://luxiaobin.github.com/blog/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://luxiaobin.github.com/blog/"/>
+  <updated>2013-01-09T23:07:44+08:00</updated>
+  <id>http://luxiaobin.github.com/blog/</id>
+  <author>
+    <name><![CDATA[luxiaobin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SHELL_STUDY]]></title>
+    <link href="http://luxiaobin.github.com/blog/blog/2013/01/09/shell-study/"/>
+    <updated>2013-01-09T21:31:00+08:00</updated>
+    <id>http://luxiaobin.github.com/blog/blog/2013/01/09/shell-study</id>
+    <content type="html"><![CDATA[<h2>基础</h2>
+
+<p>为了防止在使用变量的时候出错，强制变量使用，必须要先定义
+'''bash
+hopt -s -o nounset
+'''
+单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号。
+BASH内置变量IFS,定义字段分割符，默认是空格，可以进行重新定义，进行分割字符串
+'''bash</p>
+
+<h1>!/bin/bash</h1>
+
+<p>PL="root:x:0:0:root:/root:/bin/bash"
+IFS=':'
+j=0</p>
+
+<p>for i in $PL
+do
+j=$((j+1))
+echo 第$j个字段是 $i
+done
+'''
+条件式的用途，确保变量值一定要存在，否则若是继续执行下去，恐怕会发生严重后果'''bash</p>
+
+<h1>!/bin/bash</h1>
+
+<p>fn=${1:?'错误！请提供要删除的目录名称！'}</p>
+
+<p>echo '你要执行删除目录的指令是：'
+echo "rm -Rf ~/$fn"
+'''</p>
+]]></content>
+  </entry>
+  
+</feed>

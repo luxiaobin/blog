@@ -9,21 +9,11 @@
   <meta name="author" content="luxiaobin">
 
   
-  <meta name="description" content="按照常规方式设置过程： 1
-2
-3
-4
-5
-6
-7
-8
-9
-$mkdir .ssh
-$cd .ssh
-$ssh-keygen -t rsa
-$scp id_rsa.pub root@192.168.1.33:~/.ssh
-$ssh -l root 192.168.1.33//远程连接到远程主机
-# &hellip;">
+  <meta name="description" content="基础 为了防止在使用变量的时候出错，强制变量使用，必须要先定义
+&#8221;&#8217;bash
+hopt -s -o nounset
+&#8221;&#8217;
+单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +68,74 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/09/shell-study/">SHELL_STUDY</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-09T21:31:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/01/09/shell-study/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>基础</h2>
+
+<p>为了防止在使用变量的时候出错，强制变量使用，必须要先定义
+&#8221;&#8217;bash
+hopt -s -o nounset
+&#8221;&#8217;
+单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号。
+BASH内置变量IFS,定义字段分割符，默认是空格，可以进行重新定义，进行分割字符串
+&#8221;&#8217;bash</p>
+
+<h1>!/bin/bash</h1>
+
+<p>PL=&#8221;root:x:0:0:root:/root:/bin/bash&#8221;
+IFS=&#8217;:&#8217;
+j=0</p>
+
+<p>for i in $PL
+do
+j=$((j+1))
+echo 第$j个字段是 $i
+done
+&#8221;&#8217;
+条件式的用途，确保变量值一定要存在，否则若是继续执行下去，恐怕会发生严重后果&#8221;&#8217;bash</p>
+
+<h1>!/bin/bash</h1>
+
+<p>fn=${1:?&#8217;错误！请提供要删除的目录名称！&#8217;}</p>
+
+<p>echo &#8216;你要执行删除目录的指令是：&#8217;
+echo &#8220;rm -Rf ~/$fn&#8221;
+&#8221;&#8217;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -233,6 +291,10 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/01/09/shell-study/">SHELL_STUDY</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/02/sshd-ssh-keygen-t-rsa/">sshd设置信任登录遇到的问题</a>
       </li>
     
@@ -254,7 +316,7 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - luxiaobin -
+  Copyright &copy; 2013 - luxiaobin -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

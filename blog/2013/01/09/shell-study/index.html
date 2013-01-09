@@ -5,25 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>sshd设置信任登录遇到的问题 - Luxiaobin`s Blog</title>
+  <title>SHELL_STUDY - Luxiaobin`s Blog</title>
   <meta name="author" content="luxiaobin">
 
   
-  <meta name="description" content="按照常规方式设置过程： 1
-2
-3
-4
-5
-6
-7
-8
-9
-$mkdir .ssh
-$cd .ssh
-$ssh-keygen -t rsa
-$scp id_rsa.pub root@192.168.1.33:~/.ssh
-$ssh -l root 192.168.1.33//远程连接到远程主机
-# &hellip;">
+  <meta name="description" content="基础 为了防止在使用变量的时候出错，强制变量使用，必须要先定义
+&#8221;&#8217;bash
+hopt -s -o nounset
+&#8221;&#8217;
+单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -32,7 +22,7 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://luxiaobin.github.com/blog/blog/2012/12/02/sshd-ssh-keygen-t-rsa/">
+  <link rel="canonical" href="http://luxiaobin.github.com/blog/blog/2013/01/09/shell-study/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -81,7 +71,7 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   
   <header>
     
-      <h1 class="entry-title">Sshd设置信任登录遇到的问题</h1>
+      <h1 class="entry-title">SHELL_STUDY</h1>
     
     
       <p class="meta">
@@ -97,7 +87,7 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   
 
 
-<time datetime="2012-12-02T15:54:00+08:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time>
+<time datetime="2013-01-09T21:31:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -106,30 +96,37 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   </header>
 
 
-<div class="entry-content"><p>按照常规方式设置过程：</p>
+<div class="entry-content"><h2>基础</h2>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$mkdir</span> .ssh
-</span><span class='line'><span class="nv">$cd</span> .ssh
-</span><span class='line'><span class="nv">$ssh</span>-keygen -t rsa
-</span><span class='line'><span class="nv">$scp</span> id_rsa.pub root@192.168.1.33:~/.ssh
-</span><span class='line'><span class="nv">$ssh</span> -l root 192.168.1.33//远程连接到远程主机
-</span><span class='line'><span class="c">#cd ./ssh</span>
-</span><span class='line'><span class="c">#cat id_rsa.pub &gt;&gt; authorized_keys</span>
-</span><span class='line'><span class="nv">$ssh</span> -l root 192.168.1.33//测试
-</span><span class='line'><span class="nv">$Agent</span> admitted failure to sign using the key //要求输入密码，并报错
-</span></code></pre></td></tr></table></div></figure>
+<p>为了防止在使用变量的时候出错，强制变量使用，必须要先定义
+&#8221;&#8217;bash
+hopt -s -o nounset
+&#8221;&#8217;
+单引号的作用是形成一个所见即所得的字符串（即写什么，就显示什么），不会进行任何替换变量的操作，所以我认为使用引号，尽量使用双引号。
+BASH内置变量IFS,定义字段分割符，默认是空格，可以进行重新定义，进行分割字符串
+&#8221;&#8217;bash</p>
 
+<h1>!/bin/bash</h1>
 
-<p>检查目录权限等没问题，一般./ssh文件夹是755 authorized-keys为600或者644，搜索得到如下解决方法：在客户机ssh-add   ~/.ssh/id-rsa。更改后可以无密码登录，主要是由于客户机有多个rsa key。</p>
+<p>PL=&#8221;root:x:0:0:root:/root:/bin/bash&#8221;
+IFS=&#8217;:&#8217;
+j=0</p>
+
+<p>for i in $PL
+do
+j=$((j+1))
+echo 第$j个字段是 $i
+done
+&#8221;&#8217;
+条件式的用途，确保变量值一定要存在，否则若是继续执行下去，恐怕会发生严重后果&#8221;&#8217;bash</p>
+
+<h1>!/bin/bash</h1>
+
+<p>fn=${1:?&#8217;错误！请提供要删除的目录名称！&#8217;}</p>
+
+<p>echo &#8216;你要执行删除目录的指令是：&#8217;
+echo &#8220;rm -Rf ~/$fn&#8221;
+&#8221;&#8217;</p>
 </div>
 
 
@@ -152,15 +149,21 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
   
 
 
-<time datetime="2012-12-02T15:54:00+08:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time>
+<time datetime="2013-01-09T21:31:00+08:00" pubdate data-updated="true">Jan 9<span>th</span>, 2013</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>LINUX</a>, <a class='category' href='/blog/categories/shell/'>SHELL</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://luxiaobin.github.com/blog/blog/2012/12/02/sshd-ssh-keygen-t-rsa/" data-via="" data-counturl="http://luxiaobin.github.com/blog/blog/2012/12/02/sshd-ssh-keygen-t-rsa/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://luxiaobin.github.com/blog/blog/2013/01/09/shell-study/" data-via="" data-counturl="http://luxiaobin.github.com/blog/blog/2013/01/09/shell-study/" >Tweet</a>
   
   
   
@@ -169,10 +172,8 @@ $ssh -l root 192.168.1.33//远程连接到远程主机
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/12/02/the-trip-to-octopress/" title="Previous Post: 安装octopress遇到的问题">&laquo; 安装octopress遇到的问题</a>
+        <a class="basic-alignment left" href="/blog/2012/12/02/sshd-ssh-keygen-t-rsa/" title="Previous Post: sshd设置信任登录遇到的问题">&laquo; sshd设置信任登录遇到的问题</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/01/09/shell-study/" title="Next Post: SHELL_STUDY">SHELL_STUDY &raquo;</a>
       
     </p>
   </footer>
@@ -255,8 +256,8 @@ var duoshuoQuery = {short_name:"xiaobin"};
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://luxiaobin.github.com/blog/blog/2012/12/02/sshd-ssh-keygen-t-rsa/';
-        var disqus_url = 'http://luxiaobin.github.com/blog/blog/2012/12/02/sshd-ssh-keygen-t-rsa/';
+        var disqus_identifier = 'http://luxiaobin.github.com/blog/blog/2013/01/09/shell-study/';
+        var disqus_url = 'http://luxiaobin.github.com/blog/blog/2013/01/09/shell-study/';
         var disqus_script = 'embed.js';
       
     (function () {
